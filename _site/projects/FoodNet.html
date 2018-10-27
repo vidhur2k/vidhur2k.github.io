@@ -10,7 +10,7 @@
 
   <title>
     
-      Project One | Vidhur Kumar
+      A Convolutional Neural Network built for food item recognition in the TADA application | Vidhur Kumar
     
   </title>
 
@@ -41,18 +41,18 @@
 
   <!-- Use Jekyll SEO plugin -->
   <!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Project One | Vidhur Kumar</title>
+<title>A Convolutional Neural Network built for food item recognition in the TADA application | Vidhur Kumar</title>
 <meta name="generator" content="Jekyll v3.8.4" />
-<meta property="og:title" content="Project One" />
+<meta property="og:title" content="A Convolutional Neural Network built for food item recognition in the TADA application" />
 <meta name="author" content="Vidhur Kumar" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Powered by Jekyll and GitHub Pages" />
 <meta property="og:description" content="Powered by Jekyll and GitHub Pages" />
-<link rel="canonical" href="http://localhost:4000/projects/proj-1.html" />
-<meta property="og:url" content="http://localhost:4000/projects/proj-1.html" />
+<link rel="canonical" href="http://localhost:4000/projects/FoodNet.html" />
+<meta property="og:url" content="http://localhost:4000/projects/FoodNet.html" />
 <meta property="og:site_name" content="Vidhur Kumar" />
 <script type="application/ld+json">
-{"description":"Powered by Jekyll and GitHub Pages","author":{"@type":"Person","name":"Vidhur Kumar"},"@type":"WebPage","url":"http://localhost:4000/projects/proj-1.html","headline":"Project One","@context":"http://schema.org"}</script>
+{"description":"Powered by Jekyll and GitHub Pages","author":{"@type":"Person","name":"Vidhur Kumar"},"@type":"WebPage","url":"http://localhost:4000/projects/FoodNet.html","headline":"A Convolutional Neural Network built for food item recognition in the TADA application","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -81,10 +81,8 @@
 
   <section>
   <div class="work-container">
-    <h4 class="project-title">Project One</h4>
-    <div class="project-load"><h1 id="convolutional-neural-network-built-for-food-item-recognition-in-the-tada-application">Convolutional Neural Network built for food item recognition in the TADA application</h1>
-
-<h2 id="background">Background</h2>
+    <h4 class="project-title">A Convolutional Neural Network built for food item recognition in the TADA application</h4>
+    <div class="project-load"><h4 id="background">Background</h4>
 <p>Technology Assisted Dietary Assessment (TADA) has been one of Purdue EPICS’ most valuable insights for mounting nutrition intervention programs. With the growing concern about obesity, the need to accurately measure food intake has become imperative. For example, dietary assessment among adolescents is problematic as this group has irregular eating patterns and less enthusiasm for recording food intake. Preliminary studies among adolescents suggest that the innovative use of technology may improve the accuracy of dietary information from young people. Recognition of emerging advancements in technology, e.g., higher resolution pictures, improved memory capacity, faster processors, allow these devices to process information not previously possible.</p>
 
 <p>Our goal is to develop, implement, and evaluate a mobile device food record (mdFR) that will translate to an accurate account of daily food and nutrient intake among adolescents and adults. Our first steps include further development of our pilot mobile computing device to include digital images, a nutrient database, and image processing for identification and quantification of food consumption. Mobile computing devices provide a unique vehicle for collecting dietary information that reduces burden on record keepers. Images of food can be marked with a variety of input methods that link the item for image processing and analysis to estimate the amount of food. Images before and after foods are eaten can estimate the amount of food consumed.</p>
@@ -98,23 +96,23 @@
 
 <p>This notebook will summarize the work done in developing the Convolutional Neural Network (CNN) for food image recognition. Primarily, the framework that we intended to use was Tensorflow. But, in order to quickly prototype our network architecture, we decided to use Keras, a Deep Learning framework that is built on top of Tensorflow and provides a high level API for users to work with.</p>
 
-<h2 id="the-architecture-of-the-model">The Architecture of the Model</h2>
+<h4 id="the-architecture-of-the-model">The Architecture of the Model</h4>
 
-<p><img src="/assets/img/projects/proj-1/thumb.jpg" alt="Tensorboard Architecture" /></p>
+<p><img src="/assets/img/projects/FoodNet/thumb.jpg" alt="Tensorboard Architecture" /></p>
 
-<h2 id="the-results">The Results</h2>
+<h4 id="the-results">The Results</h4>
 
-<h3 id="understanding-the-loss-graphs">Understanding the Loss Graphs</h3>
+<h4 id="understanding-the-loss-graphs">Understanding the Loss Graphs</h4>
 
-<h4 id="validation-loss">Validation Loss</h4>
-<p><img src="/assets/img/projects/proj-1/foodnet2.jpeg" alt="Validation Loss" /></p>
+<h5 id="validation-loss">Validation Loss</h5>
+<p><img src="/assets/img/projects/FoodNet/foodnet2.jpeg" alt="Validation Loss" /></p>
 
-<h4 id="test-loss">Test Loss</h4>
-<p><img src="/assets/img/projects/proj-1/foodnet3.jpeg" alt="Test Loss" /></p>
+<h5 id="test-loss">Test Loss</h5>
+<p><img src="/assets/img/projects/FoodNet/foodnet3.jpeg" alt="Test Loss" /></p>
 
-<h2 id="breakdown-of-the-script-for-the-neural-network">Breakdown of the Script for the Neural Network</h2>
+<h4 id="breakdown-of-the-script-for-the-neural-network">Breakdown of the Script for the Neural Network</h4>
 
-<h3 id="perform-the-necessary-module-imports">Perform the necessary module imports</h3>
+<h4 id="perform-the-necessary-module-imports">Perform the necessary module imports</h4>
 
 <p>Some of these modules may need to be installed via pip or Anaconda.</p>
 
@@ -130,7 +128,7 @@
 <span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">imresize</span><span class="p">,</span> <span class="n">imread</span>
 </code></pre></div></div>
 
-<h3 id="initialize-class-dictionaries">Initialize class dictionaries</h3>
+<h4 id="initialize-class-dictionaries">Initialize class dictionaries</h4>
 
 <p>These allow for easy mapping between a particular food type and its corresponding index and vice-versa.</p>
 
@@ -145,7 +143,7 @@
     <span class="n">index_to_classes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)),</span> <span class="n">classes</span><span class="p">))</span>
 </code></pre></div></div>
 
-<h3 id="load-the-food-11-dataset">Load the Food-11 dataset.</h3>
+<h4 id="load-the-food-11-dataset">Load the Food-11 dataset.</h4>
 
 <p>We will be using 9866 images for training, 3500 for validation, and 3000 for evaluation.</p>
 
@@ -182,7 +180,7 @@
 <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">load_images</span><span class="p">(</span><span class="n">EVALUATION_DIR</span><span class="p">)</span>
 </code></pre></div></div>
 
-<h3 id="normalize-the-training-data">Normalize the training data.</h3>
+<h4 id="normalize-the-training-data">Normalize the training data.</h4>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">X_tr</span> <span class="o">=</span> <span class="n">X_tr</span> <span class="o">/</span> <span class="mf">255.0</span>
 <span class="n">X_val</span> <span class="o">=</span> <span class="n">X_val</span> <span class="o">/</span> <span class="mf">255.0</span>
@@ -195,7 +193,7 @@
 <span class="n">Y_test</span> <span class="o">=</span> <span class="n">np_utils</span><span class="o">.</span><span class="n">to_categorical</span><span class="p">(</span><span class="n">Y_test</span><span class="p">)</span>
 </code></pre></div></div>
 
-<h3 id="initialize-the-model">Initialize the model</h3>
+<h4 id="initialize-the-model">Initialize the model</h4>
 
 <p>It is a five layer model.</p>
 
@@ -242,7 +240,7 @@
 <span class="p">)</span>
 </code></pre></div></div>
 
-<h3 id="initialize-the-hyperparameters-and-the-optimization-function">Initialize the hyperparameters and the optimization function.</h3>
+<h4 id="initialize-the-hyperparameters-and-the-optimization-function">Initialize the hyperparameters and the optimization function.</h4>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">epochs</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">100</span>
@@ -258,7 +256,7 @@
 <span class="p">)</span>
 </code></pre></div></div>
 
-<h3 id="add-loss-metrics-optimization-function-train-and-test-the-cnn">Add loss metrics, optimization function. Train and test the CNN.</h3>
+<h4 id="add-loss-metrics-optimization-function-train-and-test-the-cnn">Add loss metrics, optimization function. Train and test the CNN.</h4>
 
 <p>The loss function used is categorical crossentropy, and the optimization function used is Stochastic Gradient Descent.</p>
 
@@ -289,7 +287,7 @@
 <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">Accuracy: </span><span class="si">%.2</span><span class="s">f</span><span class="si">%%</span><span class="s">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 </code></pre></div></div>
 
-<h3 id="save-the-model-to-a-json-file-and-the-weights-to-a-hdf5-format">Save the model to a JSON file and the weights to a HDF5 format</h3>
+<h4 id="save-the-model-to-a-json-file-and-the-weights-to-a-hdf5-format">Save the model to a JSON file and the weights to a HDF5 format</h4>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model_json</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
 
@@ -301,7 +299,7 @@
 <span class="k">print</span><span class="p">(</span><span class="s">'Saved model to disk.'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<h3 id="load-the-model-from-disk">Load the model from disk</h3>
+<h4 id="load-the-model-from-disk">Load the model from disk</h4>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">model_from_json</span>
 
@@ -326,9 +324,9 @@
     <div class="social-media">
       <nav>
         
-          <a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+          <a href="https://twitter.com/vidhur2000" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
         
-          <a href="#" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+          <a href="https://instagram.com/vidhur2k/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
         
           <a href="https://github.com/vidhur2k" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
         

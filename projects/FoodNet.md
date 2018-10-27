@@ -1,11 +1,9 @@
 ---
 layout: post
-title: 'Project One'
+title: 'A Convolutional Neural Network built for food item recognition in the TADA application'
 ---
 
-# Convolutional Neural Network built for food item recognition in the TADA application
-
-## Background
+#### Background
 Technology Assisted Dietary Assessment (TADA) has been one of Purdue EPICS' most valuable insights for mounting nutrition intervention programs. With the growing concern about obesity, the need to accurately measure food intake has become imperative. For example, dietary assessment among adolescents is problematic as this group has irregular eating patterns and less enthusiasm for recording food intake. Preliminary studies among adolescents suggest that the innovative use of technology may improve the accuracy of dietary information from young people. Recognition of emerging advancements in technology, e.g., higher resolution pictures, improved memory capacity, faster processors, allow these devices to process information not previously possible.
 
 Our goal is to develop, implement, and evaluate a mobile device food record (mdFR) that will translate to an accurate account of daily food and nutrient intake among adolescents and adults. Our first steps include further development of our pilot mobile computing device to include digital images, a nutrient database, and image processing for identification and quantification of food consumption. Mobile computing devices provide a unique vehicle for collecting dietary information that reduces burden on record keepers. Images of food can be marked with a variety of input methods that link the item for image processing and analysis to estimate the amount of food. Images before and after foods are eaten can estimate the amount of food consumed.
@@ -17,23 +15,23 @@ The Image Processing team for Fall 2017 has decided to work on three specific mo
 
 This notebook will summarize the work done in developing the Convolutional Neural Network (CNN) for food image recognition. Primarily, the framework that we intended to use was Tensorflow. But, in order to quickly prototype our network architecture, we decided to use Keras, a Deep Learning framework that is built on top of Tensorflow and provides a high level API for users to work with.
 
-## The Architecture of the Model
+#### The Architecture of the Model
 
-![Tensorboard Architecture](/assets/img/projects/proj-1/thumb.jpg)
+![Tensorboard Architecture](/assets/img/projects/FoodNet/thumb.jpg)
 
-## The Results
+#### The Results
 
-### Understanding the Loss Graphs
+#### Understanding the Loss Graphs
 
-#### Validation Loss
-![Validation Loss](/assets/img/projects/proj-1/foodnet2.jpeg)
+##### Validation Loss
+![Validation Loss](/assets/img/projects/FoodNet/foodnet2.jpeg)
 
-#### Test Loss
-![Test Loss](/assets/img/projects/proj-1/foodnet3.jpeg)
+##### Test Loss
+![Test Loss](/assets/img/projects/FoodNet/foodnet3.jpeg)
 
-## Breakdown of the Script for the Neural Network
+#### Breakdown of the Script for the Neural Network
 
-### Perform the necessary module imports
+#### Perform the necessary module imports
 
 Some of these modules may need to be installed via pip or Anaconda.
 
@@ -50,7 +48,7 @@ import numpy as np
 from scipy.misc import imresize, imread
 ```
 
-### Initialize class dictionaries
+#### Initialize class dictionaries
 
 These allow for easy mapping between a particular food type and its corresponding index and vice-versa.
 
@@ -66,7 +64,7 @@ with open('assets/classes.txt', 'r') as txt:
     index_to_classes = dict(zip(range(len(classes)), classes))
 ```
 
-### Load the Food-11 dataset.
+#### Load the Food-11 dataset.
 
 We will be using 9866 images for training, 3500 for validation, and 3000 for evaluation.
 
@@ -104,7 +102,7 @@ X_val, Y_val = load_images(VALIDATION_DIR)
 X_test, Y_test = load_images(EVALUATION_DIR)
 ```
 
-### Normalize the training data.
+#### Normalize the training data.
 
 ```python
 X_tr = X_tr / 255.0
@@ -118,7 +116,7 @@ Y_val = np_utils.to_categorical(Y_val)
 Y_test = np_utils.to_categorical(Y_test)
 ```
 
-### Initialize the model
+#### Initialize the model
 
 It is a five layer model.
 
@@ -166,7 +164,7 @@ model.add(
 )
 ```
 
-### Initialize the hyperparameters and the optimization function.
+#### Initialize the hyperparameters and the optimization function.
 
 ```python
 epochs = 200
@@ -183,7 +181,7 @@ sgd = SGD(
 )
 ```
 
-### Add loss metrics, optimization function. Train and test the CNN.
+#### Add loss metrics, optimization function. Train and test the CNN.
 
 The loss function used is categorical crossentropy, and the optimization function used is Stochastic Gradient Descent.
 
@@ -215,7 +213,7 @@ scores = model.evaluate(
 print('\nAccuracy: %.2f%%' % (scores[1] * 100))
 ```
 
-### Save the model to a JSON file and the weights to a HDF5 format
+#### Save the model to a JSON file and the weights to a HDF5 format
 
 ```python
 model_json = model.to_json()
@@ -228,7 +226,7 @@ model.save_weights('model1_weights.h5')
 print('Saved model to disk.')
 ```
 
-### Load the model from disk
+#### Load the model from disk
 
 ```python
 from keras.models import model_from_json

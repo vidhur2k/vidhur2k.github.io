@@ -13,6 +13,12 @@
 <lastmod>2017-01-01T00:00:00-05:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/projects/FoodNet.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/projects/Space-Invaders.html</loc>
+</url>
+<url>
 <loc>http://localhost:4000/pages/about.html</loc>
 </url>
 <url>
@@ -23,12 +29,6 @@
 </url>
 <url>
 <loc>http://localhost:4000/</loc>
-</url>
-<url>
-<loc>http://localhost:4000/projects/proj-1.html</loc>
-</url>
-<url>
-<loc>http://localhost:4000/projects/proj-2.html</loc>
 </url>
 <url>
 <loc>http://localhost:4000/projects/proj-3.html</loc>
@@ -44,6 +44,6 @@
 </url>
 <url>
 <loc>http://localhost:4000/assets/Resume%202018-19.pdf</loc>
-<lastmod>2018-10-17T01:02:46-04:00</lastmod>
+<lastmod>2018-10-17T14:38:20-04:00</lastmod>
 </url>
 </urlset>
