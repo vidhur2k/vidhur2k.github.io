@@ -25,10 +25,10 @@ This notebook will summarize the work done in developing the Convolutional Neura
 #### Understanding the Loss Graphs
 
 ##### Validation Loss
-![Validation Loss](/img/FoodNet/foodnet2.jpeg)
+![Validation Loss](/img/FoodNet/foodnet2.jpg)
 
 ##### Test Loss
-![Test Loss](/img/FoodNet/foodnet3.jpeg)
+![Test Loss](/img/FoodNet/foodnet3.jpg)
 
 #### Breakdown of the Script for the Neural Network
 

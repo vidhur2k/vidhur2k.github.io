@@ -1,0 +1,10 @@
+---
+layout: post
+title: So, there's a Fundamental Theorem of Poker!?
+date: 2015-07-15 15:09:00
+description: 
+---
+
+So, poker! It was a few years ago that I first came across the game, but the past three months have seen me spend a dangerous amount of time exploring its intricacies. It has a deceptively simple strategy for success, but one which tests your patience and skill like few others. As I played more and more, my pedantic instincts kicked in and before I knew it, I had *The Theory of Poker* by David Shlanksy in my hand after dinnertime. 
+
+It was then I came across the 
