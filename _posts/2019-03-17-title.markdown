@@ -1,7 +1,0 @@
----
-layout: post
-title: Should this loan be approved or denied?
-date: 2019-03-17 15:09:00
-description: A Logistic Regression Case Study
----
-
