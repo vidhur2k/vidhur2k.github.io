@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Classifying Loans based on the risk of defaulting</title>
+    <meta name="description" content="A simple, whitespace, helvetica based portfolio theme.
+">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/2019/06/30/loan-approval.html">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <nav class="site-nav">
+
+      <div class="trigger">
+        <!--  instead of blog -->
+        <a class="page-link" href="/">blog</a>
+
+        
+          
+          <a class="page-link" href="/about/">about</a>
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/portfolio/">portfolio</a>
+          
+        
+
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Classifying Loans based on the risk of defaulting</h1>
+    <p class="post-meta">June 30, 2019 — 00:59</p>
+  </header>
+
+    <h1 id="a-short-introduction">A Short Introduction</h1>
+<p>Classification is one of the classical problems in Supervised Learning where we attempt to train a model to classify data points into <em>n</em> distinct classes. As I was browsing through datasets online, I came across one that contained information on 1000 loan applicants (from both urban and rural areas). One of the columns in the data table was whether or not the loan was approved. An idea immediately struck me:</p>
+
+<blockquote>
+  <p>What if we could build a model to predict whether an applicant’s loan would be approved or denied depending on his or her risk of defaulting?</p>
+</blockquote>
+
+<p>This would be a garden-variety classification problem, where we have 2 distinct classes to group our data by: a loan approval or a loan denial.</p>
+
+<p>It is important to not be hasty and start training models on the raw and unexplored data. Preprocessing the data not only helps us smooth out inconsistencies (missing values and outliers), but also gives us a comprehensive understanding of the data which in turn aids us in our model selection process.</p>
+
+<p>This end-to-end Machine Learning project is primarily based on Python. I have used the following libraries to help me achieve the objective:</p>
+
+<ol>
+  <li><strong>Numpy</strong> for mathematical operations.</li>
+  <li><strong>Pandas</strong> for data exploration and analysis</li>
+  <li><strong>Matplotlib</strong> and <strong>Seaborn</strong> for data visualization</li>
+  <li><strong>Scikit-learn</strong> for model training, cross-validation, and evaluation metrics.</li>
+</ol>
+
+<h1 id="importing-the-libraries">Importing the libraries</h1>
+<p>Let us perform all the necessary imports beforehand</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s">'ignore'</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span></code></pre></figure>
+
+<p>Once we have all the libraries necessary, we can read the data in from CSV file using Pandas.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'credit_risk.csv'</span><span class="p">)</span></code></pre></figure>
+
+<h1 id="understanding-the-features">Understanding the Features</h1>
+<p>Before moving forward with the data exploration, I always like to understand the features that 
+I will be dealing with on a superficial level. Doing this will help us put into words any mathematical
+interpretations we make. The following are the list of features that we have from our dataset:</p>
+
+<ol>
+  <li><strong>Loan ID</strong>: The ID given by the bank to the loan request.</li>
+  <li><strong>Gender</strong>: The gender of the primary applicant.</li>
+  <li><strong>Married</strong>: Binary variable indicating the marital status of the primary applicant.</li>
+  <li><strong>Dependents</strong>: Number of dependents of the primary applicant.</li>
+  <li><strong>Education</strong>: Binary variable indicating whether or not the primary applicant has graduated high school.</li>
+  <li><strong>Self_Employed</strong>: Binary variable indicating whether or not the individual is self-employed.</li>
+  <li><strong>Applicant Income</strong>: The income of the primary applicant.</li>
+  <li><strong>Co-Applicant Income</strong>: The income of the co-applicant.</li>
+  <li><strong>Loan Amount</strong>: The amount the applicant wants to borrow.</li>
+  <li><strong>Loan Amount Term</strong>: The term over which the applicant would repay the loan.</li>
+  <li><strong>Credit History</strong>: Binary variable representing whether the client had a good history or a bad history.</li>
+  <li><strong>Loan Status</strong>: Variable indicating whether the loan was approved or denied. This will be our output (dependent) variable.</li>
+</ol>
+
+<h1 id="visualizing-the-data">Visualizing the data</h1>
+
+<h1 id="cleaning-the-data">Cleaning the data</h1>
+
+<h1 id="training-the-model">Training the model</h1>
+<p>Finally, the exciting bit! We have our data prepared, and we shall serve it to our model to devour! The algorithm that I chose for this particular case was Logistic Regression. It is one of the simpler supervised learning algorithms, but has proven to be extremely reliant in a variety of instances.</p>
+
+<p>Before we train the model, we shall utilize Scikit-learn’s inbuilt train-test split module to randomly split our dataset into training and testing subsets. We shall split it according to the 80-20 rule (this seems an arbitrary and scientifically ungrounded choice, but it is known to “just work” when it comes to training models).</p>
+
+<p>Let us begin by instantiating a Logistic Regression object (we will be using scikit-learn’s module) and split the dataset in the aforementioned way.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Liblinear is a solver that is effective for relatively smaller datasets.</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s">'liblinear'</span><span class="p">)</span>
+
+<span class="c"># We will follow an 80-20 split pattern for our training and test data</span>
+<span class="n">X_train</span><span class="p">,</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></code></pre></figure>
+
+<p>Now that we have everything we need, we fit the model to the training data.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span></code></pre></figure>
+
+<h1 id="evaluating-the-performance-of-the-model">Evaluating the performance of the model</h1>
+
+<p>Now that the model has been trained, we will use the test data that we sieved from the original dataset to evaluate how well our model generalizes to the data. I have divided the evaluation process in the following way:</p>
+
+<ol>
+  <li>Vectorize the predictions made by the model and build a confusion matrix.</li>
+  <li>Use the confusion matrix</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># We will compare this vector of predictions to the actual target vector to determine the model performance.</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c"># Build the confusion matrix.</span>
+<span class="n">confusion_matrix</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">class_names</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="c"># name of classes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">tick_marks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_names</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">class_names</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">class_names</span><span class="p">)</span>
+
+<span class="c"># The heatmap requires that we pass in a dataframe as the argument</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">),</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">"YlGnBu"</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">"g"</span><span class="p">)</span>
+
+<span class="c"># Configure the heatmap parameters</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s">"top"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Confusion matrix'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Actual label'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Predicted label'</span><span class="p">)</span></code></pre></figure>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+  	<p>This site was built using <a href="http://jekyllrb.com" target="_blank">Jekyll</a> and is hosted on <a href="https://github.com" target="_blank">Github</a> Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a> and text generated with <a href="http://hipsum.co" target="_blank">Hipster Ipsum</a>. &#169; 2015</p>
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

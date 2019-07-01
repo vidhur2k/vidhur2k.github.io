@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Reading List
-date: 2015-07-06 07:59:00
+date: 2019-06-30 07:59:00
 ---
 
 ## **Rationale**

@@ -250,4 +250,4 @@ loaded_model = model_from_json(loaded_model_json)
 loaded_model.load_weights('model1_weights.h5')
 print('Loaded model from disk')
 {% endhighlight %}
- -->
+

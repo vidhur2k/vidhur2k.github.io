@@ -1,3 +1,4 @@
+@import url(default.css);
 /**
  * Reset some basic elements
  */
@@ -81,11 +82,11 @@ a {
   }
   */ }
   a:hover {
-    color: #FF3636;
+    color: #2698BA;
     text-decoration: none; }
 
 article a {
-  color: #FF3636;
+  color: #2698BA;
   font-weight: 100; }
   article a:hover {
     text-decoration: none; }
@@ -108,7 +109,7 @@ blockquote {
 pre,
 code {
   font-size: 15px;
-  border-radius: 3px;
+  border-radius: 3px solid #2698BA;
   background-color: #ddd; }
 
 code {
@@ -116,9 +117,10 @@ code {
 
 pre {
   padding: 8px 12px;
-  overflow-x: scroll; }
+  overflow-x: scroll;
+  border: 3px solid black; }
   pre > code {
-    border: 0;
+    border: 3px;
     padding-right: 0;
     padding-left: 0; }
 
@@ -168,7 +170,7 @@ pre {
   margin-bottom: 0; }
   .site-title:hover {
     text-decoration: none;
-    color: #FF3636; }
+    color: #2698BA; }
 
 .site-nav {
   float: right;
@@ -202,7 +204,7 @@ pre {
   line-height: 3em;
   z-index: 25; }
   .header-bar h1 {
-    color: #FF3636;
+    color: #2698BA;
     font-size: 75px; }
   .header-bar h2 {
     font-size: 25px; }
@@ -237,7 +239,7 @@ pre {
 .paginationicon {
   font-size: 50px; }
   .paginationicon a {
-    color: #FF3636; }
+    color: #2698BA; }
 
 /**
  * Page content   **********************************************************
@@ -367,7 +369,7 @@ pre {
  * Portfolio pages **********************************************************
 */
 .blankbox {
-  background: #FF3636; }
+  background: #2698BA; }
 
 .img_row {
   height: 275px;

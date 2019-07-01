@@ -37,7 +37,7 @@ $grey-color-light: #ddd;  /* navigation bar border */
 $text-color:     #666;
 
 /* Set theme color *************************/
-$theme-color:   $red;
+$theme-color:   $blue;
 
 
 /************************************************************/
@@ -169,7 +169,7 @@ blockquote {
 pre,
 code {
     font-size: 15px;
-    border-radius: 3px;
+    border-radius: 3px solid $blue;
     background-color: $grey-color-light;
 }
 
@@ -180,9 +180,10 @@ code {
 pre {
     padding: 8px 12px;
     overflow-x: scroll;
+    border: 3px solid black;
 
     > code {
-        border: 0;
+        border: 3px;
         padding-right: 0;
         padding-left: 0;
     }
