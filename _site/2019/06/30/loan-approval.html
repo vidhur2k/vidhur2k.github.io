@@ -116,12 +116,63 @@ interpretations we make. The following are the list of features that we have fro
   <li><strong>Loan Amount</strong>: The amount the applicant wants to borrow.</li>
   <li><strong>Loan Amount Term</strong>: The term over which the applicant would repay the loan.</li>
   <li><strong>Credit History</strong>: Binary variable representing whether the client had a good history or a bad history.</li>
+  <li><strong>Property Area</strong>: Categorical variable indicating whether the applicant was from an urban, semiurban, or a rural area.</li>
   <li><strong>Loan Status</strong>: Variable indicating whether the loan was approved or denied. This will be our output (dependent) variable.</li>
 </ol>
 
+<p>Of all these variables, I have chosen the Gender, Applicant Income, Loan Amount, and Property Area as the ones to delve deeper into. It is important
+to look at the data from multiple angles, i.e., independently and in relation to the other variables. This points out any red flags in the dstributions of the variables and also reveals interesting relationships amongst them.</p>
+
 <h1 id="visualizing-the-data">Visualizing the data</h1>
+<p>Humans are visual creatures, and a majority of us process information better when we see it. Thus, when it comes to understanding our data, taking
+a visual approach is far more effective than manually crunching hundreds of rows worth of numbers. I have plotted visualizations that show the distributions
+of important features as well as interesting relationships between some of the features. How did I decide which features are important? I used the correlation matrix,
+where the value at (i, j) represents how strongly <em>feature i</em> is correlated to <em>feature j</em>.</p>
+
+<p>We can use seaborn’s heatmap visualization to help us understand the correlation matrix.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">corr</span><span class="p">())</span></code></pre></figure>
+
+<p>Before we begin explorng our feature variables, I wanted to have a look at our dependent variable, i.e., the one we are attempting to predict using the model. Shown below is a simple countplot by class.</p>
+
+<p><img src="/img/Loan-Approval/loanstatus.png" alt="Tensorboard Architecture" /></p>
+
+<p><img src="/img/Loan-Approval/corr.png" alt="Tensorboard Architecture" /></p>
+
+<p>I was also curious about how the property area and the loan amount jointly affected the authorization of the loan. Let us have a look at a relational plot of the loan amount against approval separated by the property area.
+<img src="/img/Loan-Approval/proparea.png" alt="Tensorboard Architecture" /></p>
+
+<p>It will help if we divide the data into approved and unapproved loans and look at the count of how many of those loan applications came from each property area. 
+<img src="/img/Loan-Approval/aproparea.png" alt="Tensorboard Architecture" /> <img src="/img/Loan-Approval/uproparea.png" alt="Tensorboard Architecture" /></p>
+
+<p>From the looks of it, it looks like a higher fraction of the rural loan applications are denied. I calculated the ratio of approved loans from each property area, and the numbers corroborate our hypothesis.</p>
+
+<ol>
+  <li><strong>Urban Approval Ratio:  0.7368421052631579</strong></li>
+  <li><strong>Semiurban Approval Ratio:  0.7822349570200573</strong></li>
+  <li><strong>Rural Approval Ratio:  0.6448275862068965</strong></li>
+</ol>
 
 <h1 id="cleaning-the-data">Cleaning the data</h1>
+<p>Now that we’ve explored the data visually to better understand what we’re dealing with, its time to preprocess our data
+in order to make sure that the model we train is not subject to any noisy training instances (in the context of ML, the term “training instance” refers to a
+single data point that is part of the dataset used to train and test the model.) I have divided our preprocessing step into the following substeps:</p>
+<ol>
+  <li>Check for and replace missing values if necessary.</li>
+  <li>Remove unncessary features.</li>
+  <li>Encode categorical features to make sure they are properly interpreted.</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Replace the categorical values with the numeric equivalents that we have above</span>
+<span class="n">categoricalFeatures</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Property_Area'</span><span class="p">,</span> <span class="s">'Gender'</span><span class="p">,</span> <span class="s">'Married'</span><span class="p">,</span> <span class="s">'Dependents'</span><span class="p">,</span> <span class="s">'Education'</span><span class="p">,</span> <span class="s">'Self_Employed'</span><span class="p">]</span>
+
+<span class="c"># Iterate through the list of categorical features and one hot encode them.</span>
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">categoricalFeatures</span><span class="p">:</span>
+    <span class="n">onehot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">feature</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">onehot</span><span class="p">)</span></code></pre></figure>
+
+<p>Note that data preprocessing is by no means formulaic, and the steps that I am about to take are subjective.</p>
 
 <h1 id="training-the-model">Training the model</h1>
 <p>Finally, the exciting bit! We have our data prepared, and we shall serve it to our model to devour! The algorithm that I chose for this particular case was Logistic Regression. It is one of the simpler supervised learning algorithms, but has proven to be extremely reliant in a variety of instances.</p>
@@ -141,6 +192,12 @@ interpretations we make. The following are the list of features that we have fro
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span></code></pre></figure>
 
 <h1 id="evaluating-the-performance-of-the-model">Evaluating the performance of the model</h1>
+<p>It is just as (if not more) important to evaluate the performance of algorithms as it is understanding and implementing them. I’ve provided a brief but comprehensive introduction to the confusion matrix and the three fundamental evaluation metrics for classification.</p>
+
+<p>A Confusion matrix is simply a tabular visualization of the error rates of the matrix that is widely used to evaluate the performance of 
+a classification algorithm. The rows of the matrix represent the actual label of the instance, while the columns reprsent the predicted label. In our case, we have a 2x2 matrix as we are performing binary classification. To generalize, an “n-ary” classification problem will have an nxn confusion matrix.</p>
+
+<p>The <em>(m, n)</em> entry of the confusion matrix tells us how many instances whose correct label is class <em>m</em> was classified into class <em>n</em>. So, the diagonal entries of our matrix represents correct classifications and the rest represent the incorrect ones. In binary classification, the diagonal entries are commonly referred to as the <strong>true positives</strong> and the <strong>true negatives</strong>, and the other two are the <strong>false positives</strong> and <strong>false negatives</strong>.</p>
 
 <p>Now that the model has been trained, we will use the test data that we sieved from the original dataset to evaluate how well our model generalizes to the data. I have divided the evaluation process in the following way:</p>
 
@@ -170,6 +227,38 @@ interpretations we make. The following are the list of features that we have fro
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Actual label'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Predicted label'</span><span class="p">)</span></code></pre></figure>
 
+<p><img src="/img/Loan-Approval/confmat.png" alt="Tensorboard Architecture" /></p>
+
+<p>At a glance, most of our classifications seem to be concentrated in the diagonal entries. An excellent start! Recall that we said the matrix gave us
+the error rates. But, its hard to gain a concrete numerical measure of the model’s performance from the matrix alone. Thus, we use the values from the matrix to compute the three fundamental classification performance measures: <strong>accuracy, precision, and recall</strong>.</p>
+
+<ol>
+  <li>Precision:</li>
+  <li>Recall</li>
+  <li>Accuracy</li>
+</ol>
+
+<p>Scikit-learn’s inbuilt metrics module lets us compute these metrics in a single line of code!</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Print out our performance metrics</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Accuracy:"</span><span class="p">,</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Precision:"</span><span class="p">,</span><span class="n">metrics</span><span class="o">.</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s">'Y'</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Recall:"</span><span class="p">,</span><span class="n">metrics</span><span class="o">.</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s">'Y'</span><span class="p">))</span></code></pre></figure>
+
+<p>For our model, the metrics’ values turned out to be:</p>
+<ol>
+  <li><strong>Accuracy: 0.8766233766233766</strong></li>
+  <li><strong>Precision: 0.8666666666666667</strong></li>
+  <li><strong>Recall: 0.9719626168224299</strong></li>
+</ol>
+
+<p>It is an accepted practice to use precision and recall in conjunction to gauge the performance of a classfication model as one could simply
+use instances that he or she knows would result in a correct prediction to gain a perfect precision score. In other words, if I have one training instance that I knew belonged to the positive class I would make sure that the model classifies only that instance into the positive class. The F1 score is a metric that is a harmonic sum of the precision and recall. It is a singular measure of a model’s performance and takes into account both the precision and recall, thus making sure that we do not have to go through the hassle of interpreting the numbers manually. Yet again, Scikit learn’s metrics module comes to the rescue!</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="s">"F1 Score:"</span><span class="p">,</span><span class="n">metrics</span><span class="o">.</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s">'Y'</span><span class="p">))</span></code></pre></figure>
+
+<p><strong>F1 Score: 0.9162995594713657</strong></p>
+
   </article>
 
 </div>
@@ -177,14 +266,14 @@ interpretations we make. The following are the list of features that we have fro
       </div>
     </div>
 
-    <footer class="site-footer">
+    <!-- <footer class="site-footer">
 
   <div class="wrapper">
   	<p>This site was built using <a href="http://jekyllrb.com" target="_blank">Jekyll</a> and is hosted on <a href="https://github.com" target="_blank">Github</a> Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a> and text generated with <a href="http://hipsum.co" target="_blank">Hipster Ipsum</a>. &#169; 2015</p>
   </div>
 
 </footer>
-
+ -->
 
   </body>
 

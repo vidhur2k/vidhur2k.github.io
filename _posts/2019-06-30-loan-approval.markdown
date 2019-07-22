@@ -59,11 +59,64 @@ interpretations we make. The following are the list of features that we have fro
 9. **Loan Amount**: The amount the applicant wants to borrow.
 10. **Loan Amount Term**: The term over which the applicant would repay the loan.
 11. **Credit History**: Binary variable representing whether the client had a good history or a bad history.
+12. **Property Area**: Categorical variable indicating whether the applicant was from an urban, semiurban, or a rural area.
 12. **Loan Status**: Variable indicating whether the loan was approved or denied. This will be our output (dependent) variable.
 
+Of all these variables, I have chosen the Gender, Applicant Income, Loan Amount, and Property Area as the ones to delve deeper into. It is important
+to look at the data from multiple angles, i.e., independently and in relation to the other variables. This points out any red flags in the dstributions of the variables and also reveals interesting relationships amongst them.
+
 # Visualizing the data
+Humans are visual creatures, and a majority of us process information better when we see it. Thus, when it comes to understanding our data, taking
+a visual approach is far more effective than manually crunching hundreds of rows worth of numbers. I have plotted visualizations that show the distributions
+of important features as well as interesting relationships between some of the features. How did I decide which features are important? I used the correlation matrix,
+where the value at (i, j) represents how strongly *feature i* is correlated to *feature j*. 
+
+We can use seaborn's heatmap visualization to help us understand the correlation matrix.
+{% highlight python %}
+sns.heatmap(data.corr())
+{% endhighlight %}
+
+Before we begin explorng our feature variables, I wanted to have a look at our dependent variable, i.e., the one we are attempting to predict using the model. Shown below is a simple countplot by class.
+
+![Tensorboard Architecture](/img/Loan-Approval/loanstatus.png)
+
+
+![Tensorboard Architecture](/img/Loan-Approval/corr.png)
+
+I was also curious about how the property area and the loan amount jointly affected the authorization of the loan. Let us have a look at a relational plot of the loan amount against approval separated by the property area.
+![Tensorboard Architecture](/img/Loan-Approval/proparea.png)
+
+It will help if we divide the data into approved and unapproved loans and look at the count of how many of those loan applications came from each property area. 
+![Tensorboard Architecture](/img/Loan-Approval/aproparea.png) ![Tensorboard Architecture](/img/Loan-Approval/uproparea.png)
+
+From the looks of it, it looks like a higher fraction of the rural loan applications are denied. I calculated the ratio of approved loans from each property area, and the numbers corroborate our hypothesis.
+
+1. **Urban Approval Ratio:  0.7368421052631579**
+2. **Semiurban Approval Ratio:  0.7822349570200573**
+3. **Rural Approval Ratio:  0.6448275862068965**
+
 
 # Cleaning the data
+Now that we've explored the data visually to better understand what we're dealing with, its time to preprocess our data
+in order to make sure that the model we train is not subject to any noisy training instances (in the context of ML, the term "training instance" refers to a
+single data point that is part of the dataset used to train and test the model.) I have divided our preprocessing step into the following substeps:
+1. Check for and replace missing values if necessary.
+2. Remove unncessary features.
+3. Encode categorical features to make sure they are properly interpreted.
+
+{% highlight python %}
+# Replace the categorical values with the numeric equivalents that we have above
+categoricalFeatures = ['Property_Area', 'Gender', 'Married', 'Dependents', 'Education', 'Self_Employed']
+
+# Iterate through the list of categorical features and one hot encode them.
+for feature in categoricalFeatures:
+    onehot = pd.get_dummies(data[feature], prefix=feature)
+    data = data.drop(feature, axis=1)
+    data = data.join(onehot)
+{% endhighlight %}
+
+
+ Note that data preprocessing is by no means formulaic, and the steps that I am about to take are subjective.
 
 # Training the model
 Finally, the exciting bit! We have our data prepared, and we shall serve it to our model to devour! The algorithm that I chose for this particular case was Logistic Regression. It is one of the simpler supervised learning algorithms, but has proven to be extremely reliant in a variety of instances.
@@ -89,6 +142,12 @@ lr.fit(X_train, y_train)
 {% endhighlight %}
 
 # Evaluating the performance of the model
+It is just as (if not more) important to evaluate the performance of algorithms as it is understanding and implementing them. I've provided a brief but comprehensive introduction to the confusion matrix and the three fundamental evaluation metrics for classification.
+
+A Confusion matrix is simply a tabular visualization of the error rates of the matrix that is widely used to evaluate the performance of 
+a classification algorithm. The rows of the matrix represent the actual label of the instance, while the columns reprsent the predicted label. In our case, we have a 2x2 matrix as we are performing binary classification. To generalize, an "n-ary" classification problem will have an nxn confusion matrix.
+
+The *(m, n)* entry of the confusion matrix tells us how many instances whose correct label is class *m* was classified into class *n*. So, the diagonal entries of our matrix represents correct classifications and the rest represent the incorrect ones. In binary classification, the diagonal entries are commonly referred to as the **true positives** and the **true negatives**, and the other two are the **false positives** and **false negatives**.
 
 Now that the model has been trained, we will use the test data that we sieved from the original dataset to evaluate how well our model generalizes to the data. I have divided the evaluation process in the following way:
 
@@ -117,3 +176,34 @@ plt.title('Confusion matrix', y=1.1)
 plt.ylabel('Actual label')
 plt.xlabel('Predicted label')
 {% endhighlight %}
+
+![Tensorboard Architecture](/img/Loan-Approval/confmat.png)
+
+At a glance, most of our classifications seem to be concentrated in the diagonal entries. An excellent start! Recall that we said the matrix gave us
+the error rates. But, its hard to gain a concrete numerical measure of the model's performance from the matrix alone. Thus, we use the values from the matrix to compute the three fundamental classification performance measures: **accuracy, precision, and recall**. 
+
+1. Precision:
+2. Recall
+3. Accuracy
+
+Scikit-learn's inbuilt metrics module lets us compute these metrics in a single line of code!
+{% highlight python %}
+# Print out our performance metrics
+print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+print("Precision:",metrics.precision_score(y_test, y_pred, pos_label='Y'))
+print("Recall:",metrics.recall_score(y_test, y_pred, pos_label='Y'))
+{% endhighlight %}
+
+For our model, the metrics' values turned out to be:
+1. **Accuracy: 0.8766233766233766**
+2. **Precision: 0.8666666666666667**
+3. **Recall: 0.9719626168224299**
+
+It is an accepted practice to use precision and recall in conjunction to gauge the performance of a classfication model as one could simply
+use instances that he or she knows would result in a correct prediction to gain a perfect precision score. In other words, if I have one training instance that I knew belonged to the positive class I would make sure that the model classifies only that instance into the positive class. The F1 score is a metric that is a harmonic sum of the precision and recall. It is a singular measure of a model's performance and takes into account both the precision and recall, thus making sure that we do not have to go through the hassle of interpreting the numbers manually. Yet again, Scikit learn's metrics module comes to the rescue!
+
+{% highlight python %}
+print("F1 Score:",metrics.f1_score(y_test, y_pred, pos_label='Y'))
+{% endhighlight %}
+
+**F1 Score: 0.9162995594713657**
