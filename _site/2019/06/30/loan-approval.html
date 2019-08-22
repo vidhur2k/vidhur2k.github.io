@@ -137,6 +137,9 @@ where the value at (i, j) represents how strongly <em>feature i</em> is correlat
 
 <p><img src="/img/Loan-Approval/loanstatus.png" alt="Tensorboard Architecture" /></p>
 
+<p>There is a clear imbalance between the classes, and that can be very dangerous! Our model may end up highly biased towards the majority class, which
+is not ideal when it comes to the model’s generalization capabilities. For that reason, we will perform feature scaling to ensure uniformity, and also make sure that the algorithm we use to build the model is ‘aware’ that the classes are imbalanced.</p>
+
 <p><img src="/img/Loan-Approval/corr.png" alt="Tensorboard Architecture" /></p>
 
 <p>I was also curious about how the property area and the loan amount jointly affected the authorization of the loan. Let us have a look at a relational plot of the loan amount against approval separated by the property area.
@@ -182,9 +185,16 @@ single data point that is part of the dataset used to train and test the model.)
 <p>Let us begin by instantiating a Logistic Regression object (we will be using scikit-learn’s module) and split the dataset in the aforementioned way.</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Liblinear is a solver that is effective for relatively smaller datasets.</span>
-<span class="n">lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s">'liblinear'</span><span class="p">)</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s">'liblinear'</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s">'balanced'</span><span class="p">)</span></code></pre></figure>
 
-<span class="c"># We will follow an 80-20 split pattern for our training and test data</span>
+<p>Notice that we specify that the weights of the classes in question have to be balanced. This ensures that the classes are appropriately weighted, thereby eliminating any bias created by an imbalance in the classes. If you are curious as to how the classes are weighted, <a href="https://chrisalbon.com/machine_learning/logistic_regression/handling_imbalanced_classes_in_logistic_regression/">this article by Chris Albon</a>  provides a comprehensive explanation.</p>
+
+<p>Before we pass in the data, let us perform feature scaling using Scikit-learn’s Standard Scaler.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">data_std</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># We will follow an 80-20 split pattern for our training and test data</span>
 <span class="n">X_train</span><span class="p">,</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></code></pre></figure>
 
 <p>Now that we have everything we need, we fit the model to the training data.</p>
@@ -247,9 +257,9 @@ the error rates. But, its hard to gain a concrete numerical measure of the model
 
 <p>For our model, the metrics’ values turned out to be:</p>
 <ol>
-  <li><strong>Accuracy: 0.8766233766233766</strong></li>
-  <li><strong>Precision: 0.8666666666666667</strong></li>
-  <li><strong>Recall: 0.9719626168224299</strong></li>
+  <li><strong>Accuracy: 0.8116883116883117</strong></li>
+  <li><strong>Precision: 0.875</strong></li>
+  <li><strong>Recall: 0.8504672897196262</strong></li>
 </ol>
 
 <p>It is an accepted practice to use precision and recall in conjunction to gauge the performance of a classfication model as one could simply
@@ -257,7 +267,10 @@ use instances that he or she knows would result in a correct prediction to gain 
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="s">"F1 Score:"</span><span class="p">,</span><span class="n">metrics</span><span class="o">.</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s">'Y'</span><span class="p">))</span></code></pre></figure>
 
-<p><strong>F1 Score: 0.9162995594713657</strong></p>
+<p><strong>F1 Score: 0.8625592417061612</strong></p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>Alright, awesome! We sucessfully trained a model that can predict the response to a loan applicant based on the data we have on them. To do this at scale would be futile for us humans, but the performance of the classifier shows us just how powerful these techniques can be. Classification is but one of the multitude of techniques available as part of the Predictive Modeling toolbox. I hope that this has proven to be an informative and engaging introduction to the topic. Happy coding!</p>
 
   </article>
 

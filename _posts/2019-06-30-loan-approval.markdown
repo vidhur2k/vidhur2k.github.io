@@ -80,6 +80,9 @@ Before we begin explorng our feature variables, I wanted to have a look at our d
 
 ![Tensorboard Architecture](/img/Loan-Approval/loanstatus.png)
 
+There is a clear imbalance between the classes, and that can be very dangerous! Our model may end up highly biased towards the majority class, which
+is not ideal when it comes to the model's generalization capabilities. For that reason, we will perform feature scaling to ensure uniformity, and also make sure that the algorithm we use to build the model is 'aware' that the classes are imbalanced.
+
 
 ![Tensorboard Architecture](/img/Loan-Approval/corr.png)
 
@@ -127,12 +130,21 @@ Let us begin by instantiating a Logistic Regression object (we will be using sci
 
 {% highlight python %}
 # Liblinear is a solver that is effective for relatively smaller datasets.
-lr = LogisticRegression(solver='liblinear')
+lr = LogisticRegression(solver='liblinear', class_weight='balanced')
+{% endhighlight %}
 
+Notice that we specify that the weights of the classes in question have to be balanced. This ensures that the classes are appropriately weighted, thereby eliminating any bias created by an imbalance in the classes. If you are curious as to how the classes are weighted, [this article by Chris Albon](https://chrisalbon.com/machine_learning/logistic_regression/handling_imbalanced_classes_in_logistic_regression/)  provides a comprehensive explanation.
+
+Before we pass in the data, let us perform feature scaling using Scikit-learn's Standard Scaler.
+
+{% highlight python %}
+scaler = StandardScaler()
+data_std = scaler.fit_transform(data)
+{% endhighlight %}
+
+{% highlight python %}
 # We will follow an 80-20 split pattern for our training and test data
 X_train,X_test,y_train,y_test = train_test_split(data, y, test_size=0.2, random_state = 0)
-{% highlight python %}
-{% endhighlight %}
 {% endhighlight %}
 
 Now that we have everything we need, we fit the model to the training data.
@@ -195,9 +207,9 @@ print("Recall:",metrics.recall_score(y_test, y_pred, pos_label='Y'))
 {% endhighlight %}
 
 For our model, the metrics' values turned out to be:
-1. **Accuracy: 0.8766233766233766**
-2. **Precision: 0.8666666666666667**
-3. **Recall: 0.9719626168224299**
+1. **Accuracy: 0.8116883116883117**
+2. **Precision: 0.875**
+3. **Recall: 0.8504672897196262**
 
 It is an accepted practice to use precision and recall in conjunction to gauge the performance of a classfication model as one could simply
 use instances that he or she knows would result in a correct prediction to gain a perfect precision score. In other words, if I have one training instance that I knew belonged to the positive class I would make sure that the model classifies only that instance into the positive class. The F1 score is a metric that is a harmonic sum of the precision and recall. It is a singular measure of a model's performance and takes into account both the precision and recall, thus making sure that we do not have to go through the hassle of interpreting the numbers manually. Yet again, Scikit learn's metrics module comes to the rescue!
@@ -206,4 +218,7 @@ use instances that he or she knows would result in a correct prediction to gain 
 print("F1 Score:",metrics.f1_score(y_test, y_pred, pos_label='Y'))
 {% endhighlight %}
 
-**F1 Score: 0.9162995594713657**
+**F1 Score: 0.8625592417061612**
+
+# Conclusion
+Alright, awesome! We sucessfully trained a model that can predict the response to a loan applicant based on the data we have on them. To do this at scale would be futile for us humans, but the performance of the classifier shows us just how powerful these techniques can be. Classification is but one of the multitude of techniques available as part of the Predictive Modeling toolbox. I hope that this has proven to be an informative and engaging introduction to the topic. Happy coding!
