@@ -61,7 +61,7 @@
     <p class="post-meta">June 30, 2019 — 03:59</p>
   </header>
 
-    <h1 id="a-short-introduction">A Short Introduction</h1>
+    <h2 id="a-short-introduction">A Short Introduction</h2>
 <p>Classification is one of the classical problems in Supervised Learning where we attempt to train a model to classify data points into <em>n</em> distinct classes. As I was browsing through datasets online, I came across one that contained information on 1000 loan applicants (from both urban and rural areas). One of the columns in the data table was whether or not the loan was approved. An idea immediately struck me:</p>
 
 <blockquote>
@@ -81,7 +81,7 @@
   <li><strong>Scikit-learn</strong> for model training, cross-validation, and evaluation metrics.</li>
 </ol>
 
-<h1 id="importing-the-libraries">Importing the libraries</h1>
+<h2 id="importing-the-libraries">Importing the libraries</h2>
 <p>Let us perform all the necessary imports beforehand</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
@@ -99,7 +99,7 @@
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'credit_risk.csv'</span><span class="p">)</span></code></pre></figure>
 
-<h1 id="understanding-the-features">Understanding the Features</h1>
+<h2 id="understanding-the-features">Understanding the Features</h2>
 <p>Before moving forward with the data exploration, I always like to understand the features that 
 I will be dealing with on a superficial level. Doing this will help us put into words any mathematical
 interpretations we make. The following are the list of features that we have from our dataset:</p>
@@ -123,7 +123,7 @@ interpretations we make. The following are the list of features that we have fro
 <p>Of all these variables, I have chosen the Gender, Applicant Income, Loan Amount, and Property Area as the ones to delve deeper into. It is important
 to look at the data from multiple angles, i.e., independently and in relation to the other variables. This points out any red flags in the dstributions of the variables and also reveals interesting relationships amongst them.</p>
 
-<h1 id="visualizing-the-data">Visualizing the data</h1>
+<h2 id="visualizing-the-data">Visualizing the data</h2>
 <p>Humans are visual creatures, and a majority of us process information better when we see it. Thus, when it comes to understanding our data, taking
 a visual approach is far more effective than manually crunching hundreds of rows worth of numbers. I have plotted visualizations that show the distributions
 of important features as well as interesting relationships between some of the features. How did I decide which features are important? I used the correlation matrix,
@@ -156,7 +156,7 @@ is not ideal when it comes to the model’s generalization capabilities. For tha
   <li><strong>Rural Approval Ratio:  0.6448275862068965</strong></li>
 </ol>
 
-<h1 id="cleaning-the-data">Cleaning the data</h1>
+<h2 id="cleaning-the-data">Cleaning the data</h2>
 <p>Now that we’ve explored the data visually to better understand what we’re dealing with, its time to preprocess our data
 in order to make sure that the model we train is not subject to any noisy training instances (in the context of ML, the term “training instance” refers to a
 single data point that is part of the dataset used to train and test the model.) I have divided our preprocessing step into the following substeps:</p>
@@ -177,7 +177,7 @@ single data point that is part of the dataset used to train and test the model.)
 
 <p>Note that data preprocessing is by no means formulaic, and the steps that I am about to take are subjective.</p>
 
-<h1 id="training-the-model">Training the model</h1>
+<h2 id="training-the-model">Training the model</h2>
 <p>Finally, the exciting bit! We have our data prepared, and we shall serve it to our model to devour! The algorithm that I chose for this particular case was Logistic Regression. It is one of the simpler supervised learning algorithms, but has proven to be extremely reliant in a variety of instances.</p>
 
 <p>Before we train the model, we shall utilize Scikit-learn’s inbuilt train-test split module to randomly split our dataset into training and testing subsets. We shall split it according to the 80-20 rule (this seems an arbitrary and scientifically ungrounded choice, but it is known to “just work” when it comes to training models).</p>
@@ -201,7 +201,7 @@ single data point that is part of the dataset used to train and test the model.)
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span></code></pre></figure>
 
-<h1 id="evaluating-the-performance-of-the-model">Evaluating the performance of the model</h1>
+<h2 id="evaluating-the-performance-of-the-model">Evaluating the performance of the model</h2>
 <p>It is just as (if not more) important to evaluate the performance of algorithms as it is understanding and implementing them. I’ve provided a brief but comprehensive introduction to the confusion matrix and the three fundamental evaluation metrics for classification.</p>
 
 <p>A Confusion matrix is simply a tabular visualization of the error rates of the matrix that is widely used to evaluate the performance of 
@@ -269,7 +269,7 @@ use instances that he or she knows would result in a correct prediction to gain 
 
 <p><strong>F1 Score: 0.8625592417061612</strong></p>
 
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 <p>Alright, awesome! We sucessfully trained a model that can predict the response to a loan applicant based on the data we have on them. To do this at scale would be futile for us humans, but the performance of the classifier shows us just how powerful these techniques can be. Classification is but one of the multitude of techniques available as part of the Predictive Modeling toolbox. I hope that this has proven to be an informative and engaging introduction to the topic. Happy coding!</p>
 
   </article>

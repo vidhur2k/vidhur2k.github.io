@@ -4,7 +4,7 @@ title: Classifying Loans based on the risk of defaulting
 date: 2019-06-30 07:59:00
 ---
 
-# A Short Introduction  
+## A Short Introduction  
 Classification is one of the classical problems in Supervised Learning where we attempt to train a model to classify data points into *n* distinct classes. As I was browsing through datasets online, I came across one that contained information on 1000 loan applicants (from both urban and rural areas). One of the columns in the data table was whether or not the loan was approved. An idea immediately struck me:
 
 > What if we could build a model to predict whether an applicant's loan would be approved or denied depending on his or her risk of defaulting?
@@ -20,7 +20,7 @@ This end-to-end Machine Learning project is primarily based on Python. I have us
 3. **Matplotlib** and **Seaborn** for data visualization
 4. **Scikit-learn** for model training, cross-validation, and evaluation metrics.
 
-# Importing the libraries
+## Importing the libraries
 Let us perform all the necessary imports beforehand
 
 {% highlight python %}
@@ -43,7 +43,7 @@ data = pd.read_csv('credit_risk.csv')
 {% endhighlight %}
 
 
-# Understanding the Features
+## Understanding the Features
 Before moving forward with the data exploration, I always like to understand the features that 
 I will be dealing with on a superficial level. Doing this will help us put into words any mathematical
 interpretations we make. The following are the list of features that we have from our dataset:
@@ -65,7 +65,7 @@ interpretations we make. The following are the list of features that we have fro
 Of all these variables, I have chosen the Gender, Applicant Income, Loan Amount, and Property Area as the ones to delve deeper into. It is important
 to look at the data from multiple angles, i.e., independently and in relation to the other variables. This points out any red flags in the dstributions of the variables and also reveals interesting relationships amongst them.
 
-# Visualizing the data
+## Visualizing the data
 Humans are visual creatures, and a majority of us process information better when we see it. Thus, when it comes to understanding our data, taking
 a visual approach is far more effective than manually crunching hundreds of rows worth of numbers. I have plotted visualizations that show the distributions
 of important features as well as interesting relationships between some of the features. How did I decide which features are important? I used the correlation matrix,
@@ -99,7 +99,7 @@ From the looks of it, it looks like a higher fraction of the rural loan applicat
 3. **Rural Approval Ratio:  0.6448275862068965**
 
 
-# Cleaning the data
+## Cleaning the data
 Now that we've explored the data visually to better understand what we're dealing with, its time to preprocess our data
 in order to make sure that the model we train is not subject to any noisy training instances (in the context of ML, the term "training instance" refers to a
 single data point that is part of the dataset used to train and test the model.) I have divided our preprocessing step into the following substeps:
@@ -121,7 +121,7 @@ for feature in categoricalFeatures:
 
  Note that data preprocessing is by no means formulaic, and the steps that I am about to take are subjective.
 
-# Training the model
+## Training the model
 Finally, the exciting bit! We have our data prepared, and we shall serve it to our model to devour! The algorithm that I chose for this particular case was Logistic Regression. It is one of the simpler supervised learning algorithms, but has proven to be extremely reliant in a variety of instances.
 
 Before we train the model, we shall utilize Scikit-learn's inbuilt train-test split module to randomly split our dataset into training and testing subsets. We shall split it according to the 80-20 rule (this seems an arbitrary and scientifically ungrounded choice, but it is known to "just work" when it comes to training models). 
@@ -153,7 +153,7 @@ Now that we have everything we need, we fit the model to the training data.
 lr.fit(X_train, y_train)
 {% endhighlight %}
 
-# Evaluating the performance of the model
+## Evaluating the performance of the model
 It is just as (if not more) important to evaluate the performance of algorithms as it is understanding and implementing them. I've provided a brief but comprehensive introduction to the confusion matrix and the three fundamental evaluation metrics for classification.
 
 A Confusion matrix is simply a tabular visualization of the error rates of the matrix that is widely used to evaluate the performance of 
@@ -220,5 +220,5 @@ print("F1 Score:",metrics.f1_score(y_test, y_pred, pos_label='Y'))
 
 **F1 Score: 0.8625592417061612**
 
-# Conclusion
+## Conclusion
 Alright, awesome! We sucessfully trained a model that can predict the response to a loan applicant based on the data we have on them. To do this at scale would be futile for us humans, but the performance of the classifier shows us just how powerful these techniques can be. Classification is but one of the multitude of techniques available as part of the Predictive Modeling toolbox. I hope that this has proven to be an informative and engaging introduction to the topic. Happy coding!
