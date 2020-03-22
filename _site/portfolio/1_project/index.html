@@ -27,11 +27,11 @@
 
       <div class="trigger">
         <!--  instead of blog -->
-        <a class="page-link" href="/">blog</a>
+        <a class="page-link" href="/">Blog</a>
 
         
           
-          <a class="page-link" href="/about/">about</a>
+          <a class="page-link" href="/about/">About Me</a>
           
         
           
@@ -39,7 +39,7 @@
           
         
           
-          <a class="page-link" href="/portfolio/">portfolio</a>
+          <a class="page-link" href="/portfolio/">Portfolio</a>
           
         
 
@@ -111,12 +111,12 @@
 
 <p>These allow for easy mapping between a particular food type and its corresponding index and vice-versa.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Two dictionaries to save the classes and their respective indices.</span>
-<span class="n">index_to_classes</span> <span class="o">=</span> <span class="p">{}</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># Two dictionaries to save the classes and their respective indices.
+</span><span class="n">index_to_classes</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">classes_to_index</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="c"># Adding the k-v pairs to the dicts using the custom text file.</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'assets/classes.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">txt</span><span class="p">:</span>
+<span class="c1"># Adding the k-v pairs to the dicts using the custom text file.
+</span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'assets/classes.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">txt</span><span class="p">:</span>
     <span class="n">classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">txt</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span>
     <span class="n">classes_to_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">classes</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">))))</span>
     <span class="n">index_to_classes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)),</span> <span class="n">classes</span><span class="p">))</span></code></pre></figure>
@@ -139,8 +139,8 @@
     <span class="n">imgs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
 
     <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
-        <span class="c"># print('Loading Image: ' + str(counter))</span>
-        <span class="n">im</span> <span class="o">=</span> <span class="n">imresize</span><span class="p">(</span><span class="n">imread</span><span class="p">(</span><span class="n">root</span> <span class="o">+</span> <span class="n">img</span><span class="p">),</span> <span class="p">(</span><span class="n">min_side</span><span class="p">,</span> <span class="n">min_side</span><span class="p">))</span>
+        <span class="c1"># print('Loading Image: ' + str(counter))
+</span>        <span class="n">im</span> <span class="o">=</span> <span class="n">imresize</span><span class="p">(</span><span class="n">imread</span><span class="p">(</span><span class="n">root</span> <span class="o">+</span> <span class="n">img</span><span class="p">),</span> <span class="p">(</span><span class="n">min_side</span><span class="p">,</span> <span class="n">min_side</span><span class="p">))</span>
         <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
         <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
 
@@ -152,8 +152,8 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">images</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span>
 
 
-<span class="c"># Loading the training, validation, and evaluation data.</span>
-<span class="n">X_tr</span><span class="p">,</span> <span class="n">Y_tr</span> <span class="o">=</span> <span class="n">load_images</span><span class="p">(</span><span class="n">TRAINING_DIR</span><span class="p">)</span>
+<span class="c1"># Loading the training, validation, and evaluation data.
+</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">Y_tr</span> <span class="o">=</span> <span class="n">load_images</span><span class="p">(</span><span class="n">TRAINING_DIR</span><span class="p">)</span>
 <span class="n">X_val</span><span class="p">,</span> <span class="n">Y_val</span> <span class="o">=</span> <span class="n">load_images</span><span class="p">(</span><span class="n">VALIDATION_DIR</span><span class="p">)</span>
 <span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span> <span class="o">=</span> <span class="n">load_images</span><span class="p">(</span><span class="n">EVALUATION_DIR</span><span class="p">)</span></code></pre></figure>
 
@@ -173,28 +173,28 @@
 
 <p>It is a five layer model.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Initializing the sequential model.</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># Initializing the sequential model.
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
 
-<span class="c"># Adding the first convolution layer.</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span>   <span class="c"># Number of kernels.</span>
-           <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>  <span class="c"># Kernel size.</span>
-           <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="c1"># Adding the first convolution layer.
+</span><span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span>   <span class="c1"># Number of kernels.
+</span>           <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>  <span class="c1"># Kernel size.
+</span>           <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
            <span class="n">padding</span><span class="o">=</span><span class="s">'same'</span><span class="p">,</span>
            <span class="n">activation</span><span class="o">=</span><span class="s">'relu'</span>
     <span class="p">)</span>
 <span class="p">)</span>
 
-<span class="c"># Adding the first max pooling layer.</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+<span class="c1"># Adding the first max pooling layer.
+</span><span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">MaxPooling2D</span><span class="p">(</span>
         <span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
     <span class="p">)</span>
 <span class="p">)</span>
 
-<span class="c"># Adding the second convolutional layer.</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+<span class="c1"># Adding the second convolutional layer.
+</span><span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span>
            <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
            <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span>
@@ -202,13 +202,13 @@
            <span class="n">activation</span><span class="o">=</span><span class="s">'relu'</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="c"># Adding the flattening layer.</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+<span class="c1"># Adding the flattening layer.
+</span><span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Flatten</span><span class="p">()</span>
 <span class="p">)</span>
 
-<span class="c"># Adding the fully connected layer.</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+<span class="c1"># Adding the fully connected layer.
+</span><span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Dense</span><span class="p">(</span>
         <span class="n">n_classes</span><span class="p">,</span>
         <span class="n">activation</span><span class="o">=</span><span class="s">'softmax'</span>
