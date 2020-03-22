@@ -76,6 +76,9 @@ We can use seaborn's heatmap visualization to help us understand the correlation
 sns.heatmap(data.corr())
 {% endhighlight %}
 
+]![Tensorboard Architecture](/img/Loan-Approval/corr.png)
+
+
 Before we begin explorng our feature variables, I wanted to have a look at our dependent variable, i.e., the one we are attempting to predict using the model. Shown below is a simple countplot by class.
 
 ![Tensorboard Architecture](/img/Loan-Approval/loanstatus.png)
@@ -83,8 +86,6 @@ Before we begin explorng our feature variables, I wanted to have a look at our d
 There is a clear imbalance between the classes, and that can be very dangerous! Our model may end up highly biased towards the majority class, which
 is not ideal when it comes to the model's generalization capabilities. For that reason, we will perform feature scaling to ensure uniformity, and also make sure that the algorithm we use to build the model is 'aware' that the classes are imbalanced.
 
-
-![Tensorboard Architecture](/img/Loan-Approval/corr.png)
 
 I was also curious about how the property area and the loan amount jointly affected the authorization of the loan. Let us have a look at a relational plot of the loan amount against approval separated by the property area.
 ![Tensorboard Architecture](/img/Loan-Approval/proparea.png)
@@ -193,10 +194,6 @@ plt.xlabel('Predicted label')
 
 At a glance, most of our classifications seem to be concentrated in the diagonal entries. An excellent start! Recall that we said the matrix gave us
 the error rates. But, its hard to gain a concrete numerical measure of the model's performance from the matrix alone. Thus, we use the values from the matrix to compute the three fundamental classification performance measures: **accuracy, precision, and recall**. 
-
-1. Precision:
-2. Recall
-3. Accuracy
 
 Scikit-learn's inbuilt metrics module lets us compute these metrics in a single line of code!
 {% highlight python %}

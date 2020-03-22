@@ -20,11 +20,11 @@ dl, dd, ol, ul, figure {
  */
 body {
   font-family: Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.5em;
   font-weight: 100;
-  color: #666;
-  background-color: #fdfdfd;
+  color: #000;
+  background-color: #FFFFFF;
   -webkit-text-size-adjust: 100%; }
 
 /**
@@ -52,7 +52,7 @@ figure > img {
   display: block; }
 
 figcaption {
-  font-size: 14px; }
+  font-size: 15.75px; }
 
 /**
  * Lists
@@ -74,7 +74,7 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-  color: #666;
+  color: #000;
   text-decoration: none;
   /*
   &:visited {
@@ -82,11 +82,11 @@ a {
   }
   */ }
   a:hover {
-    color: #2698BA;
+    color: #11D68B;
     text-decoration: none; }
 
 article a {
-  color: #2698BA;
+  color: #11D68B;
   font-weight: 100; }
   article a:hover {
     text-decoration: none; }
@@ -95,7 +95,7 @@ article a {
  * Blockquotes
  */
 blockquote {
-  color: #666;
+  color: #000;
   border-left: 10px solid #ddd;
   padding-left: 25px;
   font-size: 18px;
@@ -154,7 +154,7 @@ pre {
  */
 .site-header {
   border-bottom: 1px solid #ddd;
-  background-color: #000000;
+  background-color: #ffffff;
   opacity: 0.75;
   position: fixed;
   left: 0px;
@@ -170,7 +170,7 @@ pre {
   margin-bottom: 0; }
   .site-title:hover {
     text-decoration: none;
-    color: #2698BA; }
+    color: #11D68B; }
 
 .site-nav {
   float: right;
@@ -204,7 +204,7 @@ pre {
   line-height: 3em;
   z-index: 25; }
   .header-bar h1 {
-    color: #2698BA;
+    color: #11D68B;
     font-size: 75px; }
   .header-bar h2 {
     font-size: 25px; }
@@ -239,7 +239,7 @@ pre {
 .paginationicon {
   font-size: 50px; }
   .paginationicon a {
-    color: #2698BA; }
+    color: #11D68B; }
 
 /**
  * Page content   **********************************************************
@@ -296,7 +296,7 @@ pre {
       font-size: 18px; } }
 
 .post-meta {
-  font-size: 14px;
+  font-size: 15.75px;
   color: #828282;
   margin-bottom: 0px; }
 
@@ -369,7 +369,7 @@ pre {
  * Portfolio pages **********************************************************
 */
 .blankbox {
-  background: #2698BA; }
+  background: #11D68B; }
 
 .img_row {
   height: 275px;

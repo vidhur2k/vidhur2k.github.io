@@ -4,16 +4,18 @@ title: about
 permalink: /about/
 ---
 
-<img class="col one right" src="/img/prof_pic.jpg">
+<img src="/img/prof_pic.png">
 
 <br/>
 
-Hi there! My name is Vidhur Kumar and I am an undergraduate at Georgia Tech studying Computer Science.
-My primary interests lie in the fields of Artificial Intelligence, Mathematics, and Web Application Development.
+Hi!
+
+My name is Vidhur Kumar and I am currently an undergraduate student at Georgia Tech studying Computer Science. My specializations are in Artificial Intelligence and Theoretical Computer Science. Currently, I work with Prof. Jacob Abernathy a part of the GT Undergrad ML Theory Research team. Our research focuses on understanding theoretical guarantees for various optimization problems in Machine Learning such as Generative Adversarial Networks (GANs) and robustness to adversarial examples.
+
 
 <br />
 
-If those bore you (perfectly understandable), my other hobbies include Cricket, Soccer, Poker, Powerlifting, and Speedcubing. If you're still
+If those bore you, my other interests include Cricket, Soccer, Basketball, Poker, and Powerlifting. I can take all day about this stuff, so feel free to shoot me an email at vidhur2k@gmail.com if you'd like to chat!
 bored, all it takes is an email if you think that a new activity will give me perspective :)
 
 <br/>
