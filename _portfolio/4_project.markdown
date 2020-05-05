@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Project
-description: another without an image
+title: Digital Brain
+description: A chrome extension that automates the content-categorization of a user's search history.
 img: 
 ---
 
