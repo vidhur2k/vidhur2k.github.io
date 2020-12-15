@@ -11,7 +11,7 @@ dl, dd, ol, ul, figure {
 
 
 /** Variables **********************************************/
-$base-font-family:              Helvetica, sans-serif;
+$base-font-family:              'Roboto', sans-serif;
 $base-line-height:              1.5em;
 $horizontal-spacing-unit:       50px;
 $vertical-spacing-unit:         40px;
@@ -34,7 +34,7 @@ $purple: #B509AC;
 
 $grey-color-dark: #333;   /* footer */
 $grey-color-light: #ddd;  /* navigation bar border */
-$text-color:     #000;
+$text-color:     #fff;
 
 /* Set theme color *************************/
 $theme-color:   $green;
@@ -169,8 +169,9 @@ blockquote {
 pre,
 code {
     font-size: 15px;
-    border-radius: 3px solid $blue;
-    background-color: $grey-color-light;
+    // border-radius: 3px solid $blue;
+    background-color: $grey-color-dark;
+    scrollbar-color: $grey-color-dark !important;
 }
 
 code {
@@ -179,8 +180,8 @@ code {
 
 pre {
     padding: 8px 12px;
-    overflow-x: scroll;
-    border: 3px solid black;
+    overflow-y: scroll;
+    border: 2px solid #fff;
 
     > code {
         border: 3px;

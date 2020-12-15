@@ -19,12 +19,12 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
-  font-family: Helvetica, sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 18px;
   line-height: 1.5em;
   font-weight: 100;
-  color: #000;
-  background-color: #fdfdfd;
+  color: #fff;
+  background-color: #121212;
   -webkit-text-size-adjust: 100%; }
 
 /**
@@ -74,7 +74,7 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-  color: #000;
+  color: #fff;
   text-decoration: none;
   /*
   &:visited {
@@ -95,7 +95,7 @@ article a {
  * Blockquotes
  */
 blockquote {
-  color: #000;
+  color: #fff;
   border-left: 10px solid #ddd;
   padding-left: 25px;
   font-size: 18px;
@@ -109,16 +109,16 @@ blockquote {
 pre,
 code {
   font-size: 15px;
-  border-radius: 3px solid #2698BA;
-  background-color: #ddd; }
+  background-color: #333;
+  scrollbar-color: #333 !important; }
 
 code {
   padding: 1px 5px; }
 
 pre {
   padding: 8px 12px;
-  overflow-x: scroll;
-  border: 3px solid black; }
+  overflow-y: scroll;
+  border: 2px solid #fff; }
   pre > code {
     border: 3px;
     padding-right: 0;
@@ -153,8 +153,7 @@ pre {
  * Site header   **********************************************************
  */
 .site-header {
-  border-bottom: 1px solid #ddd;
-  background-color: #FFFFFF;
+  background-color: #121212;
   opacity: 0.75;
   position: fixed;
   left: 0px;
@@ -249,7 +248,7 @@ pre {
   /* VERTICAL PADDING FOR TITLE ON EVERY PAGE */ }
 
 .page-heading {
-  font-size: 20px; }
+  font-size: 24px; }
 
 .post-list {
   margin: 0px 0;
@@ -404,6 +403,12 @@ pre {
   text-align: center;
   vertical-align: middle;
   font-size: 12px; }
+
+/**
+Vidhur's styles
+*/
+.prof-pic {
+  border-radius: 50%; }
 
 /**
  * Syntax highlighting styles

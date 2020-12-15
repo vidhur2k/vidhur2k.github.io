@@ -2,11 +2,11 @@
 title: *folio
 email: vidhur2k@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  A simple, whitespace, helvetica based portfolio theme.
+  Vidhur Kumar's Portfolio
 baseurl:  # the subpath of your site, e.g. /blog/
 url:  # the base hostname & protocol for your site
-twitter_username: twitter_username
-github_username:  github_username
+twitter_username: vidhur2k
+github_username:  vidhur2k
 
 plugins: [jekyll-paginate, jekyll-jupyter-notebook]
 
