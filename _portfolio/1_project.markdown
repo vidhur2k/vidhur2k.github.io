@@ -1,8 +1,8 @@
 ---
 layout: post
 title: FoodNet
-description: Using CNNs for food classification
-img: /img/FoodNet/thumb.jpg
+description: Deep CNNs for Food Image Classification
+# img: /img/FoodNet/thumb.jpg
 ---
 # Background  
 

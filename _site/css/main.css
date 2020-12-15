@@ -350,19 +350,20 @@ pre {
   height: 230px; }
 
 .thumbnail a span {
-  display: none;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.4);
-  color: #ddd;
-  padding: 40px;
+  padding: 16px;
+  color: #333;
   text-align: center; }
+  .thumbnail a span h1 {
+    font-weight: 600; }
 
 .thumbnail a:hover span {
-  display: block; }
+  display: block;
+  background: rgba(0, 0, 0, 0.4); }
 
 /** 
  * Portfolio pages **********************************************************

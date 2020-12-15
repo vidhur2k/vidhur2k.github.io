@@ -192,91 +192,95 @@ font-size: 16px;
 .clearfix:before,
 .clearfix:after {
 content: " ";
-display: table;
+    display: table;
 }
 .clearfix:after {
-clear: both;
+    clear: both;
 }
 .project {
-width: 33.33%;
-height: 250px;
-float: left;
-vertical-align: middle;
-box-sizing: border-box;
-padding: 10px;
+    width: 33.33%;
+    height: 250px;
+    float: left;
+    vertical-align: middle;
+    box-sizing: border-box;
+    padding: 10px;
 }
 .thumbnail{
-width: 100%;
-height: 230px;
-overflow: hidden;
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
 }
 .thumbnail img{
-width: 500px;
-height: auto;
-position: relative;
-left: -25%;
-top: -5%;
+    width: 500px;
+    height: auto;
+    position: relative;
+    left: -25%;
+    top: -5%;
 }
 .thumbnail a{
-float: left;
-position: relative;
-width: 100%;
-height: 230px;
+    float: left;
+    position: relative;
+    width: 100%;
+    height: 230px;
 }
 .thumbnail a span {
-display: none;
-position: absolute;
-top: 0;
-left: 0;
-bottom: 0;
-right: 0;
-background: rgba(0,0,0,0.4);
-color: $grey-color-light;
-padding: 40px;
-text-align: center;
+    // display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 16px;
+    color: $grey-color-dark;
+    text-align: center;
+
+    h1 {
+        font-weight: 600;
+    }
 }
 .thumbnail a:hover span {
-display: block;
+    display: block;
+    background: rgba(0,0,0,0.4);
 }
 /** 
  * Portfolio pages **********************************************************
 */
 .blankbox{
-background: $theme-color;
+    background: $theme-color;
 }
 .img_row{
-height: $img_height;
-width: 100%;
-overflow: hidden;
-box-sizing:border-box;
-padding: $img_spacing;
+    height: $img_height;
+    width: 100%;
+    overflow: hidden;
+    box-sizing:border-box;
+    padding: $img_spacing;
 }
 .col{ 
-width: 100%;
-height: 100%;
-float: left;
-object-fit: cover;
-box-sizing:border-box;
-padding: $img_spacing;
+    width: 100%;
+    height: 100%;
+    float: left;
+    object-fit: cover;
+    box-sizing:border-box;
+    padding: $img_spacing;
 }
 .right{
-float: right;
+    float: right;
 }
 .one {
-width:33.33%;
+    width:33.33%;
 }
 .two {
-width: 66.66%;
+    width: 66.66%;
 }
 .three{
-width: 100%;
+    width: 100%;
 }
 .caption{
-height: 100%;
-color: $caption_color;
-text-align: center;
-vertical-align: middle;
-font-size: $caption_font_size;
+    height: 100%;
+    color: $caption_color;
+    text-align: center;
+    vertical-align: middle;
+    font-size: $caption_font_size;
 }
 
 /**

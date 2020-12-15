@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Earthquake Damage Prediction
-description: a project that redirects to another website
-img: /img/Earthquake-Prediction/earthquake.jpg
+description: CS4641 Project
+# img: /img/Earthquake-Prediction/earthquake.jpg
 ---
 
 During Fall 2020, I took a course on Machine Learning and Data Analysis (CS4641 at Georgia Tech). As part of the course, my team and I were required to complete a final project which involved us picking a dataset, exploring and preprocessing it, and experimenting on it with the different algorithms that we had learnt. This is an overview of the process we followed and the results we obtained.
