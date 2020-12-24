@@ -409,7 +409,14 @@ pre {
 Vidhur's styles
 */
 .prof-pic {
-  border-radius: 50%; }
+  border-radius: 50%;
+  text-align: center !important; }
+
+@media only screen and (max-width: 414px) {
+  .prof-pic {
+    width: 100%; } }
+.about-container {
+  text-align: center; }
 
 /**
  * Syntax highlighting styles

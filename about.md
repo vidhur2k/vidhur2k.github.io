@@ -4,6 +4,7 @@ title: About Me
 permalink: /about/
 ---
 
+<div class="about-container">
 <img class="prof-pic" src="/img/prof_pic.png">
 
 <br/>
@@ -13,6 +14,7 @@ Hi! My name is Vidhur Kumar and I am currently pursuing my MS in Computer Scienc
 <br />
 
 If those bore you, my other interests include Cricket, Soccer, Basketball, Poker, and Powerlifting. I can take all day about this stuff, so feel free to shoot me an email at vidhur2k@gmail.com if you'd like to chat!
+</div>
 
 <br/>
 <hr/>
@@ -28,4 +30,5 @@ If those bore you, my other interests include Cricket, Soccer, Basketball, Poker
 <div class="col three caption">
 	The best way to contact me is through email!
 </div>
+
 
