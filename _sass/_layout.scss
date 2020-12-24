@@ -292,8 +292,16 @@ Vidhur's styles
 }
 
 @media only screen and (max-width: 414px) {
+    img {
+        width: 100%;
+    }
+    
     .prof-pic {
         width: 100%;
+    }
+
+    .project {
+        width: 50%;
     }
 }
 
